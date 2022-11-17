@@ -13,6 +13,8 @@ function Adminhome() {
    const [pprice, setPprice] = useState("");
    const [pimage, setPimage] = useState("");
    const [pquantity, setPquantity] = useState("");
+   const [rating, setRating] = useState("");
+   const [count, setCount] = useState("");
 
     const [ntouched, setTouchedn] = useState(false);
     const [ptouched, setTouchedp] = useState(false);
@@ -35,6 +37,8 @@ function Adminhome() {
         crackerprice: pprice,
         crackerimage : pimage,
         crackerquantity : pquantity,
+        rating : rating,
+        count : count,
         });
           alert("Operation Success!");
           window.location.reload();
@@ -94,6 +98,8 @@ localStorage.setItem("editid",id);
         setPprice(val.crackerprice);
         setPimage(val.crackerimage);
         setPquantity(val.crackerquantity);
+        setRating(val.rating);
+        setCount(val.count);
         
     }
 
