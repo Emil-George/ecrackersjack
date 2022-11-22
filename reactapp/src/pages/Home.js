@@ -17,13 +17,6 @@ const Container = styled.div`
    font-size: 100%;
 `
 
-const Radio = styled.input`
-   display: none;
-`
-
-const Rating = styled.div`
-   cursor: not-allowed;
-`
 let rate;
 
 
@@ -256,24 +249,18 @@ try
                 <div key={i} className="mItem" >
                   <div className="card" >
                     
-      <Container>({cracker.count})
+      <Container>({cracker.count?cracker.count:0})
       {[...Array(5)].map((item, index) => {
         rate=index;
         return (
           <label>
-            <Radio
-              type="radio"
-              value={cracker.rating}
-            />
-            <Rating>
-              <FaStar
+              <FaStar style={{cursor: 'not-allowed'}}
                 color={
                   rate < cracker.rating || rate === cracker.rating
                     ? "000"
                     : "rgb(192,192,192)"
                 }
               />
-            </Rating>
           </label>
         );
       })}

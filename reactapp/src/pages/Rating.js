@@ -21,8 +21,18 @@ const Rating = styled.div`
 
 
 const Rate = (props) => {
-  const [rate, setRate] = useState(0);
   const uid=parseInt(localStorage.getItem("uid"));
+  const [star, setStar] = useState(0);
+
+  const getstar=async(name)=>{
+    let rdata=await axios.get("http://localhost:8082/getrating");
+    for(let i=0;i<rdata.data.length;i++){
+      if(rdata.data[i].crackers.crackername===name && rdata.data[i].users.id===uid){
+        setStar(rdata.data[i].star);
+      }
+    }
+  }
+  getstar(props.id);
 
   const handleClick=async(cname,rating)=>{
     
@@ -42,7 +52,6 @@ const Rate = (props) => {
       if(rdata.data[i].crackers.id===crackerid.data.id && rdata.data[i].users.id===uid){
         await axios.put("http://localhost:8082/editrating/"+rdata.data[i].id+"/"+uid+"/"+crackerid.data.id+"/"+rating);
         flag=true;
-        alert("Rating updated");
       }
     }
     if(!flag){
@@ -75,6 +84,7 @@ const Rate = (props) => {
     });
 
 
+    getstar(props.id);
 
 
     }
@@ -89,14 +99,14 @@ const Rate = (props) => {
               type="radio"
               value={givenRating}
               onClick={() => {
-                setRate(givenRating);
+                setStar(givenRating);
                 handleClick(props.id,givenRating);
               }}
             />
             <Rating>
               <FaStar
                 color={
-                  givenRating < rate || givenRating === rate
+                  givenRating < star || givenRating === star
                     ? "000"
                     : "rgb(192,192,192)"
                 }
